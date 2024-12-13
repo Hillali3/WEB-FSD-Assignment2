@@ -102,3 +102,35 @@ Content-Type: application/json
 // DELETE comment by id
 DELETE  http://localhost:3000/users/67530ab3560b58a4bee1b3fd
 Content-Type: application/json
+
+###
+//login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "hila.ohana@gmail.com",
+    "password": "qwe123"
+}
+
+###
+// register
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "email": "hila.ohana222@gmail.com",
+    "password": "qwe1234",
+    "name": "aviv2",
+    "username": "hila3W.ohana"
+}
+
+###
+// logout
+POST http://localhost:3000/auth/logout
+Content-Type: application/json
+
+{
+    "email": "hila.ohana@gmail.com",
+    "password": "qwe123"
+}
