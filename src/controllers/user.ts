@@ -76,3 +76,27 @@ export const getUserByUsername = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Error fetching users", error });
   }
 };
+
+//update user by id
+export const updateUser = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const { name, password, email, birthDate } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid id" });
+  }
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { name, password, email, birthDate },
+      { new: true }
+    );
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ message: "Error updating user", error });
+  }
+};
