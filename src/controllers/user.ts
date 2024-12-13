@@ -59,3 +59,20 @@ export const getUserById = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error fetching user", error });
   }
 };
+
+// Get user by username
+export const getUserByUsername = async (req: Request, res: Response) => {
+  const { username } = req.params;
+
+  try {
+    const user = await User.find({ username });
+    if (user.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No user found for this username" });
+    }
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).json({ message: "Error fetching users", error });
+  }
+};
