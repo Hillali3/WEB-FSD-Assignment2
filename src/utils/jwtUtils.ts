@@ -11,3 +11,10 @@ export const generateAccessToken = (userId: any): string => {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 };
+
+// Generate Refresh Token
+export const generateRefreshToken = (userId: any): string => {
+  return jwt.sign({ userId }, JWT_REFRESH_SECRET, {
+    expiresIn: process.env.JWT_REFRESH_EXPIRES_IN,
+  });
+};
