@@ -16,9 +16,6 @@ connectDB();
 // Middleware to parse JSON request body
 app.use(express.json());
 
-// Use Swagger docs
-setupSwaggerDocs(app);
-
 // Register routes
 app.use("/auth", authRoutes);
 app.use("/posts", postRoutes);
