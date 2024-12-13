@@ -8,6 +8,8 @@ import { sendError } from '../utils/sendError';
 export const createUser = async (req: Request, res: Response) => {
   const {  username, name, email, password } = req.body;
 
+  console.log("in function: ", req.body);
+
   if (!username || !name || !email || !password ) {
     return res.status(400).json({ message: 'username, name, email and password are required' });
   }
@@ -71,7 +73,7 @@ export const getUserByUsername = async (req: Request, res: Response) => {
 //update user by id
 export const updateUser = async (req: Request, res: Response) => {
   const id = req.params.id;
-  const  { name, password, email, birthDate } = req.body;
+  const  { name, password, email, birthDate, username } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: "Invalid id" });
@@ -80,7 +82,7 @@ export const updateUser = async (req: Request, res: Response) => {
   try {
     const updatedUser = await User.findByIdAndUpdate(
       id,
-      { name, password, email, birthDate },
+      { name, password, email, birthDate,username },
       { new: true }
     );
     if (!updatedUser) {
