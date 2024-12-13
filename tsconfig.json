@@ -8,6 +8,7 @@
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
     "rootDir": "./src",
+    "lib": ["ESNext", "DOM", "DOM.Iterable", "WebWorker"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"],

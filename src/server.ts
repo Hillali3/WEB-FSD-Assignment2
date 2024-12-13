@@ -1,10 +1,10 @@
-import express, { Request, Response, Express } from "express";
-import postRoutes from "./routes/post_route";
-import commentRoutes from "./routes/comment_route";
-import userRoutes from "./routes/user_route";
-import authRoutes from "./routes/auth_route";
-import connectDB from "./config/db";
-import mongoose from "mongoose";
+import express, { Request, Response, Express } from 'express';
+import postRoutes from './routes/post_route';
+import commentRoutes from './routes/comment_route';
+import userRoutes from './routes/user_route';
+import authRoutes from './routes/auth_route';
+import connectDB from './config/db';
+import mongoose from 'mongoose';
 require("dotenv").config();
 
 export const app = express();
@@ -17,10 +17,10 @@ connectDB();
 app.use(express.json());
 
 // Register routes
-app.use("/auth", authRoutes);
-app.use("/posts", postRoutes);
-app.use("/comments", commentRoutes);
-app.use("/users", userRoutes);
+app.use('/auth', authRoutes);
+app.use('/posts', postRoutes);
+app.use('/comments', commentRoutes);
+app.use('/users', userRoutes);
 
 // Start the server
 const initApp = () => {

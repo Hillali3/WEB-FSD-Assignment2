@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Post from "../models/post";
+import User from "../models/user";
 import mongoose from "mongoose";
 
 // Create a new post
@@ -70,7 +71,12 @@ export const getPostByUsername = async (req: Request, res: Response) => {
   const username = req.params.username;
 
   try {
-    const posts = await Post.find({ username });
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const posts = await Post.find({ userId: user?._id });
     if (posts.length === 0) {
       return res
         .status(404)
@@ -108,11 +114,12 @@ export const updatePost = async (req: Request, res: Response) => {
 
 // Delete a post
 export const deletePost = async (req: Request, res: Response) => {
-  const postId = req.params.postId;
+  const postId = req.params.id;
 
   try {
+    console.log(postId);
     const deletedPost = await Post.findByIdAndDelete(postId);
-
+    console.log(deletedPost);
     if (!deletedPost) {
       return res.status(404).json({ message: "Post not found" });
     }
