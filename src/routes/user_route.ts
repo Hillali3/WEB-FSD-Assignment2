@@ -1,3 +1,117 @@
+/**
+ * @swagger
+ * tags:
+ *   name: User
+ *   description: User management and retrieval
+ */
+
+/**
+ * @swagger
+ * /:
+ *   post:
+ *     summary: Create a new user
+ *     tags: [User]
+ *     responses:
+ *       201:
+ *         description: User created successfully
+ *       400:
+ *         description: Bad request
+ */
+
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     summary: Get all users
+ *     tags: [User]
+ *     responses:
+ *       200:
+ *         description: A list of users
+ *       400:
+ *         description: Bad request
+ */
+
+/**
+ * @swagger
+ * /id/{id}:
+ *   get:
+ *     summary: Get a user by ID
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user ID
+ *     responses:
+ *       200:
+ *         description: User found
+ *       404:
+ *         description: User not found
+ */
+
+/**
+ * @swagger
+ * /username/{username}:
+ *   get:
+ *     summary: Get a user by username
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: username
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The username
+ *     responses:
+ *       200:
+ *         description: User found
+ *       404:
+ *         description: User not found
+ */
+
+/**
+ * @swagger
+ * /{id}:
+ *   put:
+ *     summary: Update a user by ID
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user ID
+ *     responses:
+ *       200:
+ *         description: User updated successfully
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: User not found
+ */
+
+/**
+ * @swagger
+ * /{id}:
+ *   delete:
+ *     summary: Delete a user by ID
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user ID
+ *     responses:
+ *       200:
+ *         description: User deleted successfully
+ *       404:
+ *         description: User not found
+ */
 import { Router } from "express";
 
 const router = Router();
