@@ -1,4 +1,36 @@
 ###
+//CREATE new Post
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{
+    "title": "test_title2",
+    "content": "test_content",
+    "userId": "bla"
+}
+
+###
+// GET all posts
+GET http://localhost:3000/posts/
+
+###
+// GET post by id
+GET http://localhost:3000/posts/6741e90dc1df651cd0055a
+
+###
+// GET post by sender
+GET http://localhost:3000/posts?sender=bla
+
+###
+// UPDATE post by id
+PUT http://localhost:3000/posts/6741fcf3ba914a89936daca7
+Content-Type: application/json
+
+{
+    "title": "test_title3"
+}
+
+###
 //CREATE new comment
 POST http://localhost:3000/comments
 Content-Type: application/json
@@ -14,18 +46,59 @@ GET http://localhost:3000/comments/
 
 ###
 // GET comment by id
-GET http://localhost:3000/comments/675b0dc2c5c9f0dcd6682423
+GET http://localhost:3000/comments/6751ccd6764d3be8c8593a03
 
 ###
 // UPDATE comment by id
-PUT http://localhost:3000/comments/675b0dc2c5c9f0dcd6682423
+PUT http://localhost:3000/comments/6751ccd6764d3be8c8593a03
 Content-Type: application/json
 
 {
-    "content": "test_new_content",
+    "content": "test_title3",
     "author": "idan"
 }
 
 ###
-//DELETE comment by id
-DELETE http://localhost:3000/comments/675b0dc2c5c9f0dcd6682423
+// DELETE comment by id
+DELETE  http://localhost:3000/comments/6751ccd6764d3be8c8593a03
+Content-Type: application/json
+
+###
+//CREATE new User
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "username": "hila.ohana",
+    "name": "hila",
+    "email": "bla",
+    "password": "password",
+}
+
+###
+// GET all users
+GET http://localhost:3000/users/
+
+// GET user by id
+GET http://localhost:3000/users/id/6753073ddf45a0a620ea75eb
+
+###
+// GET user by username
+GET http://localhost:3000/users/username/aviv.ohana
+
+###
+// UPDATE comment by id
+PUT http://localhost:3000/users/6753074fdf45a0a620ea75f1
+Content-Type: application/json
+
+{
+    "username": "new.ohana",
+    "name": "aviv",
+    "email": "bla2",
+    "password": "password"
+}
+
+###
+// DELETE comment by id
+DELETE  http://localhost:3000/users/67530ab3560b58a4bee1b3fd
+Content-Type: application/json
