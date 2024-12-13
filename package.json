@@ -11,13 +11,15 @@
     "swagger-ui-express": "^5.0.1",
     "ts-jest": "^29.2.5"
   },
-  "name": "assignment-1",
+  "name": "assignment-2",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "tsc && node ./dist/app.js",
     "build": "tsc",
-    "serve": "node dist/index.js"
+    "dev": "nodemon ./src/app.ts",
+    "test": "tsc && jest --detectOpenHandles --forceExit",
+    "test_p": "tsc && jest ./src/tests/posts/post.test.ts --detectOpenHandles --forceExit --coverage"
   },
   "keywords": [],
   "author": "",
