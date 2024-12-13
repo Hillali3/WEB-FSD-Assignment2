@@ -56,3 +56,9 @@ export const login = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+// Logout (Invalidate the refresh token)
+export const logoutUser = async (req: Request, res: Response) => {
+  // In a real-world scenario, you may invalidate the refresh token (e.g., remove from DB or store in blacklist)
+  res.status(200).json({ message: "Logged out successfully" });
+};
