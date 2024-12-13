@@ -1,16 +1,28 @@
 import { Router } from "express";
 
 const router = Router();
-const authController = require("../controllers/auth");
+const UserController = require("../controllers/user");
+import { authenticate } from "../middleware/authMiddleware";
 
-router.post("/login", (req, res) => {
-  authController.login(req, res);
+router.use(authenticate); // Add authentication middleware to all routes
+
+router.post("/", (req, res) => {
+  UserController.createUser(req, res);
 });
-router.post("/register", (req, res) => {
-  authController.register(req, res);
+router.get("/", (req, res) => {
+  UserController.getUsers(req, res);
 });
-router.post("/logout", (req, res) => {
-  authController.logout(req, res);
+router.get("/id/:id", (req, res) => {
+  UserController.getUserById(req, res);
+});
+router.get("/username/:username", (req, res) => {
+  UserController.getUserByUsername(req, res);
+});
+router.put("/:id", (req, res) => {
+  UserController.updateUser(req, res);
+});
+router.delete("/:id", (req, res) => {
+  UserController.deleteUser(req, res);
 });
 
 export default router;
