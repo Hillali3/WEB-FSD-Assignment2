@@ -1,22 +1,34 @@
-const mongoose = require("mongoose");
+import mongoose, { Document, Schema } from "mongoose";
 
-const postSchema = new mongoose.Schema({
+// Define the Post interface
+export interface Post extends Document {
+  user: mongoose.Schema.Types.ObjectId;
+  title: String;
+  content: String;
+  creationDate: Date;
+}
+
+// Define the Post schema
+const postSchema: Schema = new Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   title: {
     type: String,
     required: true,
-    minlength: 1,
   },
   content: {
     type: String,
     required: true,
   },
-  sender: {
-    type: String,
-    required: true,
-    minlength: 1,
+  creationDate: {
+    type: Date,
+    default: Date.now,
   },
 });
 
-const Posts = mongoose.model("Posts", postSchema);
-
-module.exports = Posts;
+// Create and export the Post model
+const Post = mongoose.model<Post>("Post", postSchema);
+export default Post;

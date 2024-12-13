@@ -1,38 +1,48 @@
-const Posts = require("../models/post.js");
-const mongoose = require('mongoose');
+import { Request, Response } from "express";
+import Post from "../models/post";
+import mongoose from "mongoose";
 
-const createPost = async (req, res) => {
-  const { title, content, sender } = req.body;
+// Create a new post
+export const createPost = async (req: Request, res: Response) => {
+  const { userId, title, content } = req.body;
 
-  if (!title || !content || !sender) {
+  if (!userId || !title || !content) {
     return res
       .status(400)
-      .json({ message: "Title, content and sender are required" });
+      .json({ message: "UserId, title and content are required" });
   }
 
   try {
-    const post = await Posts.create({
-      title,
-      content,
-      sender,
-    });
-    res.status(201).json(post);
+    const newPost = new Post({ userId, title, content });
+    await newPost.save();
+    return res.status(201).json(newPost);
   } catch (error) {
-    res.status(500).send("Error creating post", error);
+    return res.status(500).json({ message: "Error creating post", error });
   }
 };
 
-const getPostById = async (req, res) => {
-  const id = req.params.id;
+// Get all posts
+export const getPosts = async (req: Request, res: Response) => {
+  try {
+    const posts = await Post.find();
+    return res.status(200).json(posts);
+  } catch (error) {
+    return res.status(500).json({ message: "Error fetching posts", error });
+  }
+};
+
+// Get post by id
+export const getPostById = async (req: Request, res: Response) => {
+  const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: "Invalid id" });
   }
 
   try {
-    const post = await Posts.findById(id);
+    const post = await Post.findById(id);
     if (!post) {
-      return res.status(404).json({ message: "Post not found" });
+      return res.status(404).json({ message: "Post is not found" });
     }
     res.status(200).json(post);
   } catch (error) {
@@ -40,20 +50,40 @@ const getPostById = async (req, res) => {
   }
 };
 
-const getPosts = async (req, res) => {
+// Get all posts by by user id
+export const getPostByUserId = async (req: Request, res: Response) => {
+  const userId = req.params.userId;
+
   try {
-    if (req.query.sender) {
-      posts = await Posts.find({ sender: req.query.sender });
-    } else {
-      posts = await Posts.find();
+    const posts = await Post.find({ userId });
+    if (posts.length === 0) {
+      return res.status(404).json({ message: "No posts found for this user" });
     }
-    res.status(200).json(posts);
+    return res.status(200).json(posts);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching Posts", error });
+    return res.status(500).json({ message: "Error fetching posts", error });
   }
 };
 
-const updatePost = async (req, res) => {
+// Get all posts by by username
+export const getPostByUsername = async (req: Request, res: Response) => {
+  const username = req.params.username;
+
+  try {
+    const posts = await Post.find({ username });
+    if (posts.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No posts found for this username" });
+    }
+    return res.status(200).json(posts);
+  } catch (error) {
+    return res.status(500).json({ message: "Error fetching posts", error });
+  }
+};
+
+//update post by id
+export const updatePost = async (req: Request, res: Response) => {
   const id = req.params.id;
   const { title, content, sender } = req.body;
 
@@ -61,14 +91,8 @@ const updatePost = async (req, res) => {
     return res.status(400).json({ error: "Invalid id" });
   }
 
-  if (!title && !content && !sender) {
-    return res
-      .status(400)
-      .json({ message: "Title, content or sender are required" });
-  }
-
   try {
-    const updatedPost = await Posts.findByIdAndUpdate(
+    const updatedPost = await Post.findByIdAndUpdate(
       id,
       { title, content, sender },
       { new: true }
@@ -82,22 +106,19 @@ const updatePost = async (req, res) => {
   }
 };
 
-const deletePost = async (req, res) => {
-  const id = req.params.id;
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ error: "Invalid id" });
-  }
+// Delete a post
+export const deletePost = async (req: Request, res: Response) => {
+  const postId = req.params.postId;
 
   try {
-    const post = await Posts.findByIdAndDelete(id);
-    if (!post) {
+    const deletedPost = await Post.findByIdAndDelete(postId);
+
+    if (!deletedPost) {
       return res.status(404).json({ message: "Post not found" });
     }
-    res.status(200).json({ message: "Post deleted successfully" });
+
+    return res.status(200).json({ message: "Post deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Error deleting post", error });
+    return res.status(500).json({ message: "Error deleting post", error });
   }
 };
-
-module.exports = { createPost, getPosts, getPostById, updatePost, deletePost };

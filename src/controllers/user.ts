@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import User from "../models/user";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import { sendError } from "../utils/sendError";
+// import { sendError } from "../utils/sendError";
 
 // Create a new user
 export const createUser = async (req: Request, res: Response) => {
@@ -26,8 +26,9 @@ export const createUser = async (req: Request, res: Response) => {
     });
     await newUser.save();
     return res.status(201).json(newUser);
-  } catch {
-    return sendError(res, "Fail registration");
+  } catch (error) {
+    return res.status(500).json({ message: "Error fetching users", error });
+    // return sendError(res, "Fail registration");
   }
 };
 
