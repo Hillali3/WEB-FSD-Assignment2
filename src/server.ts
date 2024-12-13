@@ -4,7 +4,6 @@ import commentRoutes from "./routes/comment_route";
 import userRoutes from "./routes/user_route";
 import authRoutes from "./routes/auth_route";
 import connectDB from "./config/db";
-import setupSwaggerDocs from "./swagger";
 import mongoose from "mongoose";
 require("dotenv").config();
 
