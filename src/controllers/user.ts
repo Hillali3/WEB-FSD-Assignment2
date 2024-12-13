@@ -8,8 +8,6 @@ import { sendError } from '../utils/sendError';
 export const createUser = async (req: Request, res: Response) => {
   const {  username, name, email, password } = req.body;
 
-  console.log("in function: ", req.body);
-
   if (!username || !name || !email || !password ) {
     return res.status(400).json({ message: 'username, name, email and password are required' });
   }

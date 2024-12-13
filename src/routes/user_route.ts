@@ -7,10 +7,34 @@
 
 /**
  * @swagger
- * /:
+ * /users/:
  *   post:
  *     summary: Create a new user
  *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *               - email
+ *               - password
+ *               - name
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 description: The user's username
+ *               email:
+ *                 type: string
+ *                 description: The user's email
+ *               password:
+ *                 type: string
+ *                 description: The user's password
+ *               name:
+ *                 type: string
+ *                 description: The user's name
  *     responses:
  *       201:
  *         description: User created successfully
@@ -20,7 +44,7 @@
 
 /**
  * @swagger
- * /:
+ * /users/:
  *   get:
  *     summary: Get all users
  *     tags: [User]
@@ -33,7 +57,7 @@
 
 /**
  * @swagger
- * /id/{id}:
+ * /users/id/{id}:
  *   get:
  *     summary: Get a user by ID
  *     tags: [User]
@@ -53,7 +77,7 @@
 
 /**
  * @swagger
- * /username/{username}:
+ * /users/username/{username}:
  *   get:
  *     summary: Get a user by username
  *     tags: [User]
@@ -73,7 +97,7 @@
 
 /**
  * @swagger
- * /{id}:
+ * /users/{id}:
  *   put:
  *     summary: Update a user by ID
  *     tags: [User]
@@ -95,7 +119,7 @@
 
 /**
  * @swagger
- * /{id}:
+ * /users/{id}:
  *   delete:
  *     summary: Delete a user by ID
  *     tags: [User]

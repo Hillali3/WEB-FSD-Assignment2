@@ -33,7 +33,6 @@ describe("Posts Test", () => {
       .send({ ...posts[0], userId })
       .set("Authorization", `Bearer ${accessToken}`);
     postId = response.body._id;
-    console.log(response.body);
     expect(response.status).toBe(201);
     expect(response.body.title).toBe(posts[0].title);
     expect(response.body.content).toBe(posts[0].content);

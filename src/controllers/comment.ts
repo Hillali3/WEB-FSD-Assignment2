@@ -6,7 +6,6 @@ import User from '../models/user';
 // Create a new comment
 export const createComment = async (req: Request, res: Response) => {
   const { postId, userId, text } = req.body;
-  console.log("req.body", req.body);
   if (!postId || !userId || !text) {
     return res.status(400).json({ message: 'PostId, UserId, and text are required' });
   }

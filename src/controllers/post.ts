@@ -13,6 +13,10 @@ export const createPost = async (req: Request, res: Response) => {
       .json({ message: "UserId, title and content are required" });
   }
 
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return res.status(400).json({ error: "Invalid userId" });
+  }
+
   try {
     const newPost = new Post({ userId, title, content });
     await newPost.save();
@@ -117,9 +121,7 @@ export const deletePost = async (req: Request, res: Response) => {
   const postId = req.params.id;
 
   try {
-    console.log(postId);
     const deletedPost = await Post.findByIdAndDelete(postId);
-    console.log(deletedPost);
     if (!deletedPost) {
       return res.status(404).json({ message: "Post not found" });
     }

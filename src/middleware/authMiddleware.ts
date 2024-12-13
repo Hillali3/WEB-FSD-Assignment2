@@ -8,7 +8,6 @@ export const authenticate = (
 ) => {
   const token = req.header("Authorization")?.replace("Bearer ", "");
 
-  console.log(req.header("Authorization"));
   if (!token) {
     return res.status(403).json({ message: "Access denied" });
   }
