@@ -7,6 +7,7 @@ export interface User extends Document {
   email: String;
   password: String;
   birthDate: Date;
+  tokens: [String];
 }
 
 // Define the user schema
@@ -30,6 +31,9 @@ const userSchema: Schema = new Schema({
   birthDate: {
     type: Date,
     default: Date.now,
+  },
+  tokens: {
+    type: [String],
   },
 });
 
